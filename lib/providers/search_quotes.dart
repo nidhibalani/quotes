@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:quotes/models/quote.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Quotes {
+class Quotes with ChangeNotifier {
   static List<Quote> _listQuotes = [];
 
   static List<Quote> _favQuotes = [];
@@ -26,6 +27,7 @@ class Quotes {
         }
       }
     }
+    notifyListeners();
   }
 
 
@@ -45,6 +47,7 @@ class Quotes {
         }
       }
     }
+    notifyListeners();
   }
 
 
@@ -75,6 +78,8 @@ class Quotes {
 
     await prefs.setString('Favo', json.encode(itemList));
     log("3");
+
+    notifyListeners();
   }
 
   void emptyList() {
@@ -102,7 +107,9 @@ class Quotes {
     log("2");
     itemList.removeWhere((element) => element['id'] == id);
     await prefs.setString('Favo', json.encode(itemList));
-//itemList.removeWhere((key, value) => key == "propertyName");
+
+
+    notifyListeners();
 
 /* itemList.add({"id":id,"quote":quote});
 log("2");

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
 import 'package:quotes/models/quote.dart';
 import 'package:quotes/providers/search_quotes.dart';
 import 'package:quotes/widgets/search_box.dart';
@@ -29,11 +30,11 @@ class _SearchScreenState extends State<SearchScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    
+    final quotes=Provider.of<Quotes>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-          SizedBox(
+         const SizedBox(
             height: 30,
           ),
           searchBox(),
@@ -61,7 +62,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               icon: Icon(Icons.favorite),
                               onPressed: () {
                                 !quotes.quotes[index].isFav? quotes.addFavorite(quotes.quotes[index].id ,quotes.quotes[index].quote):quotes.deleteFavorite(quotes.quotes[index].id ,quotes.quotes[index].quote);
-                                setState(() {});
+                               /*  setState(() {}); */
                               }),
                           title: Text(quotes.quotes[index].quote),
                         ),
@@ -88,9 +89,9 @@ class _SearchScreenState extends State<SearchScreen> {
       height: 50,
       child: TextFormField(
 onFieldSubmitted: ((value) async { await quotes.searchQuotes(value);
-setState(() {
+ setState(() {
   
-});
+}); 
 }),
 
 decoration: InputDecoration(label: 

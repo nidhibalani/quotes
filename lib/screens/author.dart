@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
 import 'package:quotes/models/quote.dart';
 import 'package:quotes/providers/search_quotes.dart';
 import 'package:quotes/widgets/search_box.dart';
@@ -29,7 +30,7 @@ class _AuthorScreenState extends State<AuthorScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    
+    final quotes=Provider.of<Quotes>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
@@ -37,7 +38,7 @@ class _AuthorScreenState extends State<AuthorScreen> {
             height: 30,
           ),
           searchBox(),
-          filter(),
+        //  filter(),
           Container(
             height: MediaQuery.of(context).size.height - 140,
             child: ListView.builder(
@@ -61,7 +62,7 @@ class _AuthorScreenState extends State<AuthorScreen> {
                               icon: Icon(Icons.favorite),
                               onPressed: () {
                                 !quotes.quotes[index].isFav? quotes.addFavorite(quotes.quotes[index].id ,quotes.quotes[index].quote):quotes.deleteFavorite(quotes.quotes[index].id ,quotes.quotes[index].quote);
-                                setState(() {});
+                                //setState(() {});
                               }),
                           title: Text(quotes.quotes[index].quote),
                         ),
@@ -111,7 +112,7 @@ decoration: InputDecoration(label:
     );
   }
 
-  Widget filter() {
+  /* Widget filter() {
     return DropdownButton(
       value: dropdownvalue,
       icon: const Icon(Icons.keyboard_arrow_down),
@@ -128,4 +129,4 @@ decoration: InputDecoration(label:
       },
     );
   }
-}
+ */}
